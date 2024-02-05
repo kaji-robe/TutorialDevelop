@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.techacademy.entity.User;
+import com.techacademy.repository.UserRepository;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -32,6 +34,7 @@ class UserControllerTest {
 
     UserControllerTest(WebApplicationContext context) {
         this.webApplicationContext = context;
+
     }
 
     @BeforeEach
@@ -42,12 +45,13 @@ class UserControllerTest {
                 .apply(springSecurity()).build();
     }
 
+
     @Test
     @DisplayName("User更新画面")
     @WithMockUser
     void testGetUser() throws Exception {
         // HTTPリクエストに対するレスポンスの検証
-        MvcResult result = mockMvc.perform(get("/user/update/1/")) // URLにアクセス
+        MvcResult resultA = mockMvc.perform(get("/user/update/1/")) // URLにアクセス
             .andExpect(status().isOk()) // ステータスを確認
             .andExpect(model().attributeExists("user")) // Modelの内容を確認
             .andExpect(model().hasNoErrors()) // Modelのエラー有無の確認
@@ -56,8 +60,29 @@ class UserControllerTest {
 
         // userの検証
         // Modelからuserを取り出す
-        User user = (User)result.getModelAndView().getModel().get("user");
+        User user = (User)resultA.getModelAndView().getModel().get("user");
         assertEquals(user.getId(), 1);
         assertEquals(user.getName(), "キラメキ太郎");
     }
+
+
+    @Test
+    @DisplayName("一覧画面")
+    @WithMockUser
+    void testGetList() throws Exception {
+        // HTTPリクエストに対するレスポンスの検証
+        MvcResult resultB = mockMvc.perform(get("/user/list")) // URLにアクセス
+            .andExpect(status().isOk()) // ステータスを確認
+            .andExpect(model().attributeExists("userlist")) // Modelの内容を確認
+            .andExpect(model().hasNoErrors()) // Modelのエラー有無の確認
+            .andExpect(view().name("user/list")) // viewの確認
+            .andReturn(); // 内容の取得
+
+        // userlistの検証
+        // Modelからuserlistを取り出す
+
+
+
+    }
+
 }
