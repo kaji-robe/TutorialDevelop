@@ -13,7 +13,7 @@ import com.techacademy.entity.User;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 class UserRepositoryTest {
-    private final UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     UserRepositoryTest(UserRepository repository) {
