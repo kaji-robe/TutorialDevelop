@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
@@ -24,7 +24,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.techacademy.entity.User;
-import com.techacademy.repository.UserRepository;
+
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -68,11 +68,15 @@ class UserControllerTest {
     }
 
 
+
+    // 以下、L18課題のコード
+    // 以下、L18課題のコード
+    // 以下、L18課題のコード
     @Test
     @DisplayName("一覧画面")
     @WithMockUser
     void testGetList() throws Exception {
-        // HTTPリクエストに対するレスポンスの検証
+        // getListメソッドのテスト
         MvcResult resultB = mockMvc.perform(get("/user/list")) // URLにアクセス
             .andExpect(status().isOk()) // ステータスを確認
             .andExpect(model().attributeExists("userlist")) // Modelの内容を確認
@@ -80,17 +84,16 @@ class UserControllerTest {
             .andExpect(view().name("user/list")) // viewの確認
             .andReturn(); // 内容の取得
 
-        // userlistの検証
-        // Modelからuserlistを取り出す
 
-
-     // Modelからuserlistを取り出す
+        //Modelからuserlistを取り出す。コピペで対応。実際のところ、よくわからん。
         List<User> userlist = (List<User>)resultB.getModelAndView().getModel().get("userlist");
-        // userlistの件数を検証
+
+        // userlistの件数を検証。本当は「3」という数字をprintlnしたい。
         assertEquals(3, userlist.size());
-        // userlistの内容を検証
+
+        // userlistの内容を検証。「検証」とかいう曖昧な表現はハッキリ定義して欲しい。
         for (User user : userlist) {
-            System.out.println(user.getId() + " " + user.getName());
+            System.out.println("検証結果： ID>" + user.getId() + " name> " + user.getName());
         }
 
     }
