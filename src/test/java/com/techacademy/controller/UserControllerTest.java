@@ -91,7 +91,7 @@ class UserControllerTest {
         // userlistの件数を検証。
         assertEquals(3, userlist.size());
 
-        // userlistの内容を検証。「検証」とかいう曖昧な表現はハッキリ定義して欲しい。
+        // userlistの内容を検証。
         //for (User user : userlist) {
         //    System.out.println("検証結果： ID>" + user.getId() + " name> " + user.getName());
         //}
