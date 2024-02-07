@@ -37,6 +37,7 @@ public class UserController {
     /** User登録画面を表示 */
     @GetMapping("/register")
     public String getRegister(@ModelAttribute User user) {
+        // この記述でも同じ model.addAttribute("user", user);
         // User登録画面に遷移
         return "user/register";
     }
