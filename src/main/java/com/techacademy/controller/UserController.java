@@ -79,6 +79,8 @@ public class UserController {
     @GetMapping("/update/{id}/")
     public String getUser(@PathVariable("id") Integer id, Model model) {
         // Modelに登録
+        //if文でチェックする。
+        //idにはnullがセットされた状態だから。200歳とあったらそれをセットする。
         model.addAttribute("user", service.getUser(id));
         // User更新画面に遷移
         return "user/update";
@@ -88,8 +90,8 @@ public class UserController {
     @PostMapping("/update/{id}/")
     public String postUser(@Validated User user, BindingResult res, Model model) {
         if(res.hasErrors()) {
-            //エラーあり
-            return "user/update";
+            //エラーあり。ここを教えてもらった。
+            return getUser(null,model);
         }
         // User登録
         service.saveUser(user);

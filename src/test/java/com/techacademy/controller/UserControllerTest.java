@@ -88,14 +88,58 @@ class UserControllerTest {
         //Modelからuserlistを取り出す。コピペで対応。実際のところ、よくわからん。
         List<User> userlist = (List<User>)resultB.getModelAndView().getModel().get("userlist");
 
-        // userlistの件数を検証。本当は「3」という数字をprintlnしたい。
+        // userlistの件数を検証。
         assertEquals(3, userlist.size());
 
         // userlistの内容を検証。「検証」とかいう曖昧な表現はハッキリ定義して欲しい。
-        for (User user : userlist) {
-            System.out.println("検証結果： ID>" + user.getId() + " name> " + user.getName());
-        }
+        //for (User user : userlist) {
+        //    System.out.println("検証結果： ID>" + user.getId() + " name> " + user.getName());
+        //}
+
+        User user1 = userlist.get(0);
+        assertEquals(user1.getId(), 1);
+        assertEquals(user1.getName(), "キラメキ太郎");
+
+        User user2 = userlist.get(1);
+        assertEquals(user2.getId(), 2);
+        assertEquals(user2.getName(), "キラメキ次郎");
+
+        User user3 = userlist.get(2);
+        assertEquals(user3.getId(), 3);
+        assertEquals(user3.getName(), "キラメキ花子");
 
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
