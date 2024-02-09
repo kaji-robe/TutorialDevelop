@@ -80,18 +80,18 @@ public class UserController {
     public String getUser(@PathVariable("id") Integer id, Model model) {
         //課題ではif文でチェックする。
         //課題ではidにnullがセットされた状態だから。
-        //User user = null;
-        //if(id != null) {
-        //    user = service.getUser(id);
-        //} else {
-        //    user = (User) model.asMap().get("user");
-        // }
+        User user = null;
+        if(id != null) {
+            user = service.getUser(id);
+        } else {
+            user = (User) model.asMap().get("user");
+         }
 
-        //Modelに登録。元のコード
-        model.addAttribute("user", service.getUser(id));
+        //Modelに登録。元のサンプルコード
+        //model.addAttribute("user", service.getUser(id));
 
         //課題のためのコード
-        //model.addAttribute("user", user);
+        model.addAttribute("user", user);
 
         // User更新画面に遷移
         return "user/update";
@@ -102,11 +102,11 @@ public class UserController {
     public String postUser(@Validated User user, BindingResult res, Model model) {
         if(res.hasErrors()) {
 
-            //エラーあり。元のコード
-            return "user/update";
+            //エラーあり。元のサンプルコード
+            //return "user/update";
 
-            //課題のコード。ヒントを教えてもらった。
-            //return getUser(null,model);
+            //エラーあり。課題のコード。ヒントを教えてもらった。
+            return getUser(null,model);
         }
         // User登録
         service.saveUser(user);
